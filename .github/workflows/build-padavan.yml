@@ -51,6 +51,7 @@ jobs:
         #因不同型号配置功能不一样，所以先把配置项删除，如果你自己要添加其他的，也要写上删除这一条，切记！！！
         ################################################################################################
         sed -i '/CONFIG_FIRMWARE_INCLUDE_MENTOHUST/d' .config #删除配置项MENTOHUST
+        sed -i '/CONFIG_FIRMWARE_INCLUDE_MINIEAP/d' .config #删除配置项minieap
         sed -i '/CONFIG_FIRMWARE_INCLUDE_NAPT66/d' .config #删除配置项NAPT66
         sed -i '/CONFIG_FIRMWARE_INCLUDE_SHADOWSOCKS/d' .config #删除配置项SS plus+
         sed -i '/CONFIG_FIRMWARE_INCLUDE_SSSERVER/d' .config #删除配置项SS server
@@ -66,7 +67,8 @@ jobs:
         ######################################################################
         #以下选项是定义你需要的功能（y=集成,n=忽略），重新写入到.config文件
         ######################################################################
-        echo "CONFIG_FIRMWARE_INCLUDE_MENTOHUST=y" >> .config #MENTOHUST
+        echo "CONFIG_FIRMWARE_INCLUDE_MENTOHUST=n" >> .config #MENTOHUST
+        echo "CONFIG_FIRMWARE_INCLUDE_MINIEAP=y" >> .config #minieap
         echo "CONFIG_FIRMWARE_INCLUDE_NAPT66=y" >> .config #NAPT66
         echo "CONFIG_FIRMWARE_INCLUDE_SHADOWSOCKS=y" >> .config #SS plus+
         echo "CONFIG_FIRMWARE_INCLUDE_SSOBFS=n" >> .config # simple-obfs混淆插件
@@ -86,7 +88,7 @@ jobs:
         echo "CONFIG_FIRMWARE_INCLUDE_CADDYBIN=n" >> .config #集成caddu执行文件，此文件有13M,请注意固件大小。如果不集成，会从网上下载下来执行，不影响正常使用
         echo "CONFIG_FIRMWARE_INCLUDE_ADGUARDHOME=n" >> .config
         echo "CONFIG_FIRMWARE_INCLUDE_SRELAY=n" >> .config #可以不集成
-        echo "CONFIG_FIRMWARE_INCLUDE_WYY=n" >> .config #网易云解锁
+        echo "CONFIG_FIRMWARE_INCLUDE_WYY=y" >> .config #网易云解锁
         echo "CONFIG_FIRMWARE_INCLUDE_WYYBIN=n" >> .config #网易云解锁GO版本执行文件（4M多）注意固件超大小,不集成会自动下载
         echo "CONFIG_FIRMWARE_INCLUDE_ZEROTIER=n" >> .config #zerotier ~1.3M
         #########################################################################################
@@ -102,5 +104,5 @@ jobs:
       uses: actions/upload-artifact@master
       if: always()
       with:
-        name: Padavan-packages
+        name: plus
         path: /opt/images
